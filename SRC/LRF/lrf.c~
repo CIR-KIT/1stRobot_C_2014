@@ -1,0 +1,10 @@
+#include "lrf.h"
+
+#define pLOG( msg ) fprintf(stderr,"LOG : %s - line %s\n%s\n"
+
+
+int LRFSet(urg_t* urg)
+{
+
+
+}
