@@ -1,0 +1,11 @@
+#ifndef __ARDUINO__
+#define __ARDUINO__
+
+#define NUM_OF_ARDUINO 2
+#define SEND_ID 0                  //ID for send Arduino
+#define RECV_ID 1                  //ID for recv Arduino
+
+int SetArduino(const int);
+int Move(const char, const int , const char);
+
+#endif

@@ -7,9 +7,9 @@
 
 #define printLOG( msg ) fprintf(stderr,"file : %s\tline : %d\tmessage : %s\n",__FILE__,__LINE__,msg)
 
-#define PORT "/dev/ttyACM2"
+#define PORT "/dev/ttyACM0"
 #define BAUDRATE B115200
-#define DATASIZE 1
+#define DATASIZE 10
 
 int main(void)
 {
@@ -36,13 +36,11 @@ int main(void)
 
   ioctl(fd, TCSETS, &neo_term); //Set new settings of Serial
 
-  for(i=0; ;i++){
-    if(i%2)
-      sprintf(buf,"A");
-    else sprintf(buf,"B");
+  for(i=0; i<DATASIZE; i++)
+    sprintf(&buf[i],"%d", i+1);
+
+  while(1){
     while(write(fd, buf, DATASIZE) != DATASIZE) puts("here");
-    if(i%500)
-    usleep(10000);
   }
 
   ioctl(fd, TCSETS, &pre_term); //Return to old settings of Serial

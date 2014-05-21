@@ -9,7 +9,7 @@
 
 #define PORT "/dev/ttyACM2"
 #define BAUDRATE B115200
-#define DATASIZE 5
+#define DATASIZE 1
 
 int main(void)
 {
@@ -36,11 +36,13 @@ int main(void)
 
   ioctl(fd, TCSETS, &neo_term); //Set new settings of Serial
 
-  sprintf(buf,"Test;");
-
-  while(1){
+  for(i=0; ;i++){
+    if(i%2)
+      sprintf(buf,"A");
+    else sprintf(buf,"B");
     while(write(fd, buf, DATASIZE) != DATASIZE) puts("here");
-    usleep(5000);
+    if(i%500)
+    usleep(10000);
   }
 
   ioctl(fd, TCSETS, &pre_term); //Return to old settings of Serial

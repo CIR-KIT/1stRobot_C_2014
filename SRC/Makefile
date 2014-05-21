@@ -1,10 +1,11 @@
 #==================================================================
 #  **Makefile for 4thRobot**
 # 
-#  Version : 2.5
+#  Version : 3.0
 #  Date    : 2014/02/15 (Ver.1.0)
 #            2014/02/27 (Ver.2.0)
 #            2014/03/06 (Ver.2.5)
+#	     2014/03/21 (Ver.3.0)
 #  Author  : Ryodo Tanaka (Kyushu Institute of Technology)
 #==================================================================
 
@@ -18,8 +19,8 @@
 #==================================================================
 
 SRC		= main
-SUB		= lrf
-VPATH		= $(OBJ_DIR):./LRF
+SUB		= lrf arduino control
+VPATH		= $(OBJ_DIR):./LRF:./Arduino:./Control
 
 #DEBUG 		= -ggdb -O0 
 OPTION  	= -Wall -O2
@@ -28,11 +29,12 @@ OPTION  	= -Wall -O2
 
 
 
+
 #**Macro & Makefile Code**=========================================
 #  Do not change !
 #==================================================================
 
-CC 		= g++
+CC 		= gcc
 
 OPENCV_FLG	= `pkg-config --cflags opencv`
 OPENCV_LIB 	= `pkg-config --libs opencv`
@@ -52,10 +54,10 @@ OBJS		= $(SUB:%=%.o) $(SRC).o
 
 all : $(MKFILE) $(OBJ_DIR) $(%.o) $(SRC).o $(SRC) $(TAGS)
 
-$(SRC).o : $(SRC).cpp $(SRC).hpp $(MKFILE)
+$(SRC).o : $(SRC).c $(SRC).h $(MKFILE)
 	$(CC) -c $< $(OPTION) $(DEBUG) $(CFLAGS) $(LDLIBS) -o $(OBJ_DIR)$@ 
 
-%.o : %.cpp %.hpp $(MKFILE)
+%.o : %.c %.h $(MKFILE)
 	$(CC) -c $< $(OPTION) $(DEBUG) $(CFLAGS) $(LDLIBS) -o $(OBJ_DIR)$@ 
 
 $(SRC) : $(OBJS) $(MKFILE)
@@ -65,8 +67,7 @@ $(OBJ_DIR) :
 	mkdir $@
 
 $(TAGS) : $(OBJS)
-	etags `find ./ -name "*.cpp"` 
-	etags `find ./ -name "*.hpp"` 
+	etags `find ./ -name "*.[ch]"` 
 
 clean :
 	rm -r $(OBJS:%=$(OBJ_DIR)%) $(SRC) $(TAGS)

@@ -1,0 +1,7 @@
+#ifndef __CONTROL__
+#define __CONTROL__
+
+
+intSetJoystick(void);
+
+#endif
