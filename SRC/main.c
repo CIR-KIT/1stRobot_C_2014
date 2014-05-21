@@ -18,7 +18,6 @@ int main(void)
   while(1){
     GetJSinfo2MVcmd(&JScmd);
     Move(JScmd.gear, JScmd.speed, JScmd.dir);
-    usleep(10000);
   }
 
   CloseArduino(SEND_ID);

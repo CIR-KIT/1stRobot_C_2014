@@ -20,15 +20,15 @@ Arduino/arduino.h,205
 Arduino/arduino.c,332
 #define printLOG(22,540
 #define BAUDRATE 25,660
-#define SENDSIZE 26,705
-#define RECVSIZE 27,764
-const char* PORT[PORT30,846
-int ARfd[ARfd33,946
-struct termios ARoldtio[ARoldtio36,1039
-struct termios ARoldtio[NUM_OF_ARDUINO], ARnewtio[ARnewtio36,1039
-int SetArduino(47,1484
-void CloseArduino(81,2381
-int Move(105,3345
+#define SENDSIZE 26,706
+#define RECVSIZE 27,765
+const char* PORT[PORT30,847
+int ARfd[ARfd33,947
+struct termios ARoldtio[ARoldtio36,1040
+struct termios ARoldtio[NUM_OF_ARDUINO], ARnewtio[ARnewtio36,1040
+int SetArduino(47,1485
+void CloseArduino(81,2382
+int Move(105,3346
 
 main.c,15
 int main(5,58

@@ -22,7 +22,7 @@
 #define printLOG( msg ) fprintf(stderr,"file : %s\tline : %d\tmessage : %s\n",__FILE__,__LINE__,msg)
 
 //local settings 
-#define BAUDRATE B19200           //Baudrate
+#define BAUDRATE B115200           //Baudrate
 #define SENDSIZE 13                //Send data size (Byte)
 #define RECVSIZE 10                //Recieve data size (Byte)
 
@@ -112,6 +112,7 @@ int Move(const char DIRflg, const unsigned char speed, const char STEERflg)
   else{
     sprintf(buf, "$MV,%c%d%d%d,S%c;", DIRflg, speed/100,speed/10%10, speed%10 ,STEERflg);
     while(write(ARfd[SEND_ID], buf, SENDSIZE) != SENDSIZE);
+    usleep(2000);
   }
   return 0;
 }

@@ -22,12 +22,12 @@
 #define printLOG( msg ) fprintf(stderr,"file : %s\tline : %d\tmessage : %s\n",__FILE__,__LINE__,msg)
 
 //local settings 
-#define BAUDRATE B19200           //Baudrate
+#define BAUDRATE B115200           //Baudrate
 #define SENDSIZE 13                //Send data size (Byte)
 #define RECVSIZE 10                //Recieve data size (Byte)
 
 //Serial Port path
-const char* PORT[NUM_OF_ARDUINO] = {"/dev/ttyACM0", "/dev/ttyACM1"};
+const char* PORT[NUM_OF_ARDUINO] = {"/dev/ttyACM1", "/dev/ttyACM1"};
 
 //File discripter for Arduino
 int ARfd[NUM_OF_ARDUINO];
