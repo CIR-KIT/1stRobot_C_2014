@@ -10,8 +10,14 @@
 #define LEFT '-'                   //Turn Left command
 #define KEEP '@'                   //Keep the turn dir
 
+typedef union{
+  unsigned char cmd[2];
+  unsigned short data;
+} EncCmd;
+
 int SetArduino(const int);
 void CloseArduino(int);
 int Move(const char, const unsigned char , const char);
+int ReadEncoder(EncCmd*);
 
 #endif

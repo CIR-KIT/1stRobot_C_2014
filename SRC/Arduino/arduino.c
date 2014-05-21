@@ -28,11 +28,11 @@
 #define RECVSIZE 10                //Recieve data size (Byte)
 
 //Serial Port path
-const char* PORT[NUM_OF_ARDUINO] = {"/dev/serial/by-id/usb-Arduino__www.arduino.cc__0043_95233353131351B0B131-if00
-", "/dev/ttyACM1"};
+//const char* PORT[NUM_OF_ARDUINO] = {"/dev/serial/by-id/usb-Arduino__www.arduino.cc__0043_95233353131351B0B131-if00", "/dev/serial/by-id/usb-Arduino__www.arduino.cc__0043_A4132373935351E03241-if00"};
+const char* PORT[NUM_OF_ARDUINO] = {"","/dev/serial/by-id/usb-Arduino__www.arduino.cc__0043_95233353131351D040D0-if00"};
 
 //File discripter for Arduino
-int ARfd[NUM_OF_ARDUINO];
+  int ARfd[NUM_OF_ARDUINO];
 
 //Old & New serial settings for Arduino                          
 struct termios ARoldtio[NUM_OF_ARDUINO], ARnewtio[NUM_OF_ARDUINO];
@@ -90,7 +90,7 @@ void CloseArduino(int id){
   Return   : 0(succeed), other(failed)
   About    : Send Move command(SENDSIZE byte) to Arduino
              Move command chart (speed value) is "000" to "256")
-	       Forward  :  $MV,F(speed calue),S(+or-or@);
+	       Forward  :  $MV,F(speed value),S(+or-or@);
 	       Back     :  $MV,B(speed value),S(+or-or@);
 	       Stop     :  $MV,F(speed value),S(+or-or@);
 	                   $MV,B(speed value),S(+or-or@);
@@ -106,8 +106,10 @@ void CloseArduino(int id){
 ----------------------------------------------------------------*/
 int Move(const char DIRflg, const unsigned char speed, const char STEERflg)
 {
+  //constract send buffer with '.'
   char buf[SENDSIZE] = {'.'};
 
+  //check the input command
   if(DIRflg != 'F' && DIRflg != 'B') return 1;
   else if(speed < 0 || 220 < speed) return 2;
   else if(STEERflg != '+' && STEERflg != '-' && STEERflg != '@') return 3;
@@ -118,6 +120,16 @@ int Move(const char DIRflg, const unsigned char speed, const char STEERflg)
   return 0;
 }
 
-int ReadEncoder()
+int ReadEncoder(EncCmd *cnt)
 {
+  while(write(ARfd[RECV_ID], "$ENC", 4) != 4);
+  while(read(ARfd[RECV_ID], cnt->cmd, sizeof(unsigned short)) != sizeof(unsigned short))puts("here");
+  return 0;
 }
+
+
+
+
+
+
+

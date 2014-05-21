@@ -1,9 +1,11 @@
 #include "main.h"
+#include <stdio.h>
 
 int main(void)
 {
 
   MVcmd JScmd;
+  EncCmd cnt;
   
   //constract JScmd
   JScmd.gear  = FORWARD;
@@ -12,22 +14,26 @@ int main(void)
   JScmd.deg   = 0;
   
   //Open Joy Stick
-  SetJoystick();
+  //  SetJoystick();
   //Open Arduino
-  SetArduino(SEND_ID);
-  SerArduino(RECV_ID);
+  // SetArduino(SEND_ID);
+  SetArduino(RECV_ID);
+
+ 
 
   //Main Roop
   while(1){
-    GetJSinfo2MVcmd(&JScmd);
-    Move(JScmd.gear, JScmd.speed, JScmd.dir);
+    //GetJSinfo2MVcmd(&JScmd);
+    //Move(JScmd.gear, JScmd.speed, JScmd.dir);
+    ReadEncoder(&cnt);
+    printf("%d\t%d\t%d\n",cnt.cmd[0], cnt.cmd[1], cnt.data);
   }
 
   //Close Arduino
-  CloseArduino(SEND_ID);
+  //CloseArduino(SEND_ID);
   CloseArduino(RECV_ID);
   //Close JoyStick
-  CloseJoystick();
+  //CloseJoystick();
 
   return 0;
 }
