@@ -1,19 +1,18 @@
 
-Arduino/arduino.c,362
+Arduino/arduino.c,333
 #define printLOG(23,637
 #define BAUDRATE 26,757
 #define SENDSIZE 27,803
 #define RECVSIZE 28,862
-const char* PORT[PORT32,1145
-  int ARfd[ARfd35,1297
-struct termios ARoldtio[ARoldtio38,1392
-struct termios ARoldtio[NUM_OF_ARDUINO], ARnewtio[ARnewtio38,1392
-int SetArduino(49,1837
-void CloseArduino(83,2734
-int Move(107,3698
-int ReadEncoder(123,4215
+const char* PORT[PORT31,944
+int ARfd[ARfd34,1109
+struct termios ARoldtio[ARoldtio37,1202
+struct termios ARoldtio[NUM_OF_ARDUINO], ARnewtio[ARnewtio37,1202
+int SetArduino(48,1647
+void CloseArduino(82,2544
+int Move(106,3508
 
-Arduino/arduino.h,284
+Arduino/arduino.h,205
 #define __ARDUINO__2,20
 #define NUM_OF_ARDUINO 4,41
 #define SEND_ID 5,96
@@ -23,9 +22,6 @@ Arduino/arduino.h,284
 #define RIGHT 9,314
 #define LEFT 10,370
 #define KEEP 11,425
-  unsigned char cmd[cmd14,496
-  unsigned short data;15,520
-} EncCmd;16,543
 
 Control/control.c,197
 #define printLOG(20,538
@@ -54,6 +50,6 @@ const char* PORT[PORT12,195
 int LRFSet(14,245
 
 main.c,15
-int main(4,38
+int main(5,58
 
 main.h,0
