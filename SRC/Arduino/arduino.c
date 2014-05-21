@@ -122,8 +122,7 @@ int Move(const char DIRflg, const unsigned char speed, const char STEERflg)
 
 int ReadEncoder(EncCmd *cnt)
 {
-  while(write(ARfd[RECV_ID], "$ENC", 4) != 4);
-  while(read(ARfd[RECV_ID], cnt->cmd, sizeof(unsigned short)) != sizeof(unsigned short))puts("here");
+  while(read(ARfd[RECV_ID], cnt->cmd, sizeof(unsigned short)) != sizeof(unsigned short));
   return 0;
 }
 
