@@ -1,9 +1,10 @@
 #==================================================================
 #  **Makefile for 4thRobot**
 # 
-#  Version : 2.0
+#  Version : 2.5
 #  Date    : 2014/02/15 (Ver.1.0)
 #            2014/02/27 (Ver.2.0)
+#            2014/03/06 (Ver.2.5)
 #  Author  : Ryodo Tanaka (Kyushu Institute of Technology)
 #==================================================================
 
@@ -49,7 +50,7 @@ OBJ_DIR		= ./bin/
 OBJS		= $(SUB:%=%.o) $(SRC).o
 
 
-all : $(MKFILE) $(OBJ_DIR) $(OBJS) $(SRC) $(TAGS)
+all : $(MKFILE) $(OBJ_DIR) $(%.o) $(SRC).o $(SRC) $(TAGS)
 
 $(SRC).o : $(SRC).cpp $(SRC).hpp $(SUB:%=%.hpp) $(MKFILE)
 	$(CC) -c $< $(OPTION) $(DEBUG) $(CFLAGS) $(LDLIBS) -o $(OBJ_DIR)$@ 

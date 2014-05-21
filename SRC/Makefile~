@@ -64,7 +64,8 @@ $(OBJ_DIR) :
 	mkdir $@
 
 $(TAGS) : $(OBJS)
-	etags `find ./ -name "*.cpp" -name "*.hpp"` 
+	etags `find ./ -name "*.cpp"` 
+	etags `find ./ -name "*.hpp"` 
 
 clean :
 	rm -r $(OBJS:%=$(OBJ_DIR)%) $(SRC) $(TAGS)
