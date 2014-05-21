@@ -17,7 +17,7 @@
 #include "../Arduino/arduino.h"
 
 //for debug
-#define printLOG( msg ) fprintf(stderr,"file : %s\tline : %d\tmessage : %s\n",__FILE__,__LINE__,msg)
+#define printLOG( msg ) fprintf(stderr,"message : %s\nfile : %s\nline : %d\n",msg,__FILE__,__LINE__)
 
 //local define
 #define PORT "/dev/input/js0"            //Port path
@@ -63,7 +63,7 @@ int SetJoystick(void)
   //Use non-blocking mode
   fcntl(JSfd, F_SETFL, O_NONBLOCK);
 
-  printf("\t%s\tis Connected ...\n", JSname);
+  printf("%s\tis Connected ...\n", JSname);
   
   return 0;
 
@@ -128,7 +128,7 @@ void GetJSinfo2MVcmd(MVcmd* cmd)
 	{
 	case 1 :
 	  cmd->gear = FORWARD;
-	  cmd->speed = (float)(axis[13] + 32767) / 65534 * 255;
+	  cmd->speed = (float)(axis[13] + 32767) / 65534 * 220;
 	  break;
 	default :
 	  break;
@@ -139,7 +139,7 @@ void GetJSinfo2MVcmd(MVcmd* cmd)
 	{
 	case 1 :
 	  cmd->gear = BACK;
-	  cmd->speed = (float)(axis[12] + 32767) / 65534 * 255;
+	  cmd->speed = (float)(axis[12] + 32767) / 65534 * 220;
 	  break;
 	default :
 	  break;

@@ -12,20 +12,22 @@ int main(void)
 
   while(flg != 1 || flg != 2){
     puts("Select the Mode.");
-    puts("Robot Mode...1\nRC    Mode...2");
+    puts("RC    Mode...1\nRobot Mode...2");
     if(scanf("%d",&flg) < 0)
       flg = 0;
 
-    if(!SetArduino(AR_ALL_ID));
-    else{
-      puts("Arduino Connect Failed....");
-      exit(1);
-    }
-
     if(flg == 1){
       puts("");
-      puts("\n\t\tRC Mode is selected.");
+      puts("------------------------------------------------------------");
+      puts("\t\tRC Mode is selected.");
+      puts("------------------------------------------------------------");
       puts("");
+
+      if(!SetArduino(AR_ALL_ID));
+      else{
+	puts("Arduino Connect Failed....");
+	exit(1);
+      }
 
       //constract JScmd
       JScmd.gear = FORWARD;
@@ -39,9 +41,11 @@ int main(void)
 	exit(1);
       }
 
-      puts("\n\t\tStart the RC Mode.");
       puts("");
-      puts("\t\tGood Luck !!");
+      puts("------------------------------------------------------------");
+      puts("\t\tStart the RC Mode.\n\t\tGood Luck !! ('o')ﾉｼ");
+      puts("------------------------------------------------------------");
+
 
       while(1){
 	GetJSinfo2MVcmd(&JScmd);
@@ -52,8 +56,21 @@ int main(void)
 
     else if(flg == 2){
       puts("");
+      puts("------------------------------------------------------------");
       puts("\t\tRobot Mode is selected.");
+      puts("------------------------------------------------------------");
       puts("");
+
+      if(!SetArduino(AR_ALL_ID));
+      else{
+	puts("Arduino Connect Failed....");
+	exit(1);
+      }
+
+      puts("");
+      puts("------------------------------------------------------------");
+      puts("\t\tStart the Robot Mode.\n\t\tLet's Go !! ('o')ﾉｼ");
+      puts("------------------------------------------------------------");
 
       while(1){
 	GetEncData(&FCEnc,&RREnc,&RLEnc);
@@ -70,6 +87,7 @@ int main(void)
 
 
   CloseArduino(AR_ALL_ID);
+  CloseJoystick();
  
 
   return 0;

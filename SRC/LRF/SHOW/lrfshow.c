@@ -9,7 +9,8 @@
 #include "lrfshow.h"
 
 //for debug
-#define printLOG( msg ) fprintf(stderr,"\n\tError : %s\n\tfile : %s\n\tline : %d\n",msg,__FILE__,__LINE__)
+
+#define printLOG( msg ) fprintf(stderr,"mesg : %s\nfile : %s\nline : %d\n",msg,__FILE__,__LINE__)
 
 //local define
 #define FIRST_RANGE -45
@@ -23,6 +24,8 @@ CvPoint lo_pt1, lo_pt2,
      slant_pt1, slant_pt2,
      limit_pt1, limit_pt2,
      object_pt, center_pt;
+unsigned char flg = 0;
+
 
 /*================================================================
   Name     : DrawFundamental
@@ -138,10 +141,17 @@ void DrawObject(IplImage* img, const long lrf_data_max, const long *lrf_data,  c
 =========================================================================================*/
 void LRFShow(IplImage* img, const long lrf_data_max, const long *lrf_data, const long max_dist, const char* lrf_window_name)
 {
-  img = cvCreateImage(cvSize(LRF_WINDOW_SIZE,LRF_WINDOW_SIZE), IPL_DEPTH_8U, 3);
-  if(!img){
-    printLOG("cvCreateImage() LRFShow");
-    exit(1);
+  switch(flg){
+  case 0 :
+    img = cvCreateImage(cvSize(LRF_WINDOW_SIZE,LRF_WINDOW_SIZE), IPL_DEPTH_8U, 3);
+    if(!img){
+      printLOG("cvCreateImage() LRFShow");
+      exit(1);
+    }
+    flg++;
+    break;
+  default :
+    break;
   }
 
   cvZero(img);

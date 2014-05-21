@@ -20,7 +20,7 @@
 #include "arduino.h"
 
 //for debug
-#define printLOG( msg ) fprintf(stderr,"file : %s\tline : %d\tmessage : %s\n",__FILE__,__LINE__,msg)
+#define printLOG( msg ) fprintf(stderr,"mesg : %s\nfile : %s\nline : %d\n",msg,__FILE__,__LINE__)
 
 //local settings 
 #define BAUDRATE B115200           //Baudrate
@@ -96,7 +96,7 @@ int SetArduino(const int id)
     ioctl(ARfd[id], TCSETS, &ARnewtio[id]);
   }
 
-  puts("\n\t\tArduino is Connected ...");
+  puts("Arduino is Connected ...");
 
   return 0;
 }
@@ -161,7 +161,9 @@ int GetEncData(unsigned short *fcenc, unsigned short *rrenc, unsigned short *rle
 
   do{
     while(read(ARfd[AR_RECV_ID], buf, RECVSIZE) != RECVSIZE);
+    printf("here : %s\n",buf);
   }while(buf[0] != '$'|| buf[1] != 'E' || buf[2] != 'N' || buf[3] != 'C' || buf[RECVSIZE-1] != ';');
+
 
   *fcenc = atoi(&buf[5])*10000+atoi(&buf[6])*1000+atoi(&buf[7])*100+atoi(&buf[8])*10+atoi(&buf[9]);
   *rrenc = atoi(&buf[11])*10000+atoi(&buf[12])*1000+atoi(&buf[13])*100+atoi(&buf[14])*10+atoi(&buf[15]);

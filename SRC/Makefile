@@ -56,13 +56,13 @@ OBJS		= $(SUB:%=%.o) $(SRC).o
 all : $(MKFILE) $(OBJ_DIR) $(%.o) $(SRC).o $(SRC) $(TAGS)
 
 $(SRC).o : $(SRC).c $(SRC).h $(MKFILE)
-	$(CC) -c $< $(OPTION) $(DEBUG) $(CFLAGS) $(LDLIBS) -o $(OBJ_DIR)$@ 
+	$(CC) -c $< $(CFLAGS) $(LDLIBS) $(OPTION) $(DEBUG) -o $(OBJ_DIR)$@
 
 %.o : %.c %.h $(MKFILE)
-	$(CC) -c $< $(OPTION) $(DEBUG) $(CFLAGS) $(LDLIBS) -o $(OBJ_DIR)$@ 
+	$(CC) -c $< $(CFLAGS) $(LDLIBS) $(OPTION) $(DEBUG) -o $(OBJ_DIR)$@
 
 $(SRC) : $(OBJS) $(MKFILE)
-	$(CC) $(OBJS:%=$(OBJ_DIR)%) $(OPTION) $(DEBUG) $(CFLAGS) $(LDLIBS) -o $@
+	$(CC) $(OBJS:%=$(OBJ_DIR)%) $(CFLAGS) $(LDLIBS) $(OPTION) $(DEBUG) -o $@
 
 $(OBJ_DIR) :
 	mkdir $@

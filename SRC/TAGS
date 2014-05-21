@@ -1,17 +1,17 @@
 
 Arduino/arduino.c,359
 #define printLOG(23,637
-#define BAUDRATE 26,757
-#define SENDSIZE 27,803
-#define RECVSIZE 28,862
-const char* PORT[PORT31,944
-int ARfd[ARfd34,1174
-struct termios ARoldtio[ARoldtio37,1267
-struct termios ARoldtio[NUM_OF_ARDUINO], ARnewtio[ARnewtio37,1267
-int SetArduino(48,1712
-void CloseArduino(113,3354
-int Move(144,4430
-int GetEncData(158,4887
+#define BAUDRATE 26,754
+#define SENDSIZE 27,800
+#define RECVSIZE 28,859
+const char* PORT[PORT31,941
+int ARfd[ARfd34,1171
+struct termios ARoldtio[ARoldtio37,1264
+struct termios ARoldtio[NUM_OF_ARDUINO], ARnewtio[ARnewtio37,1264
+int SetArduino(48,1709
+void CloseArduino(113,3345
+int Move(144,4421
+int GetEncData(158,4878
 
 Arduino/arduino.h,237
 #define __ARDUINO__2,20
@@ -27,13 +27,13 @@ Arduino/arduino.h,237
 
 Control/control.c,197
 #define printLOG(20,538
-#define PORT 23,655
-int JSfd;25,709
-int *axis axis26,788
-char *button button27,869
-int SetJoystick(38,1323
-void CloseJoystick(81,2371
-void GetJSinfo2MVcmd(99,2814
+#define PORT 23,652
+int JSfd;25,706
+int *axis axis26,785
+char *button button27,866
+int SetJoystick(38,1320
+void CloseJoystick(81,2366
+void GetJSinfo2MVcmd(99,2809
 
 Control/control.h,130
 #define __CONTROL__2,20
@@ -49,31 +49,32 @@ LRF/lrf.h,21
 LRF/SHOW/lrfshow.h,26
 #define __LRF_SHOW__2,21
 
-LRF/SHOW/lrfshow.c,510
-#define printLOG(12,165
-#define FIRST_RANGE 15,288
-#define LAST_RANGE 16,312
-#define LRF_WINDOW_SIZE 17,335
-#define PI 18,363
-CvSize ellipse;20,384
-CvPoint lo_pt1,21,400
-CvPoint lo_pt1, lo_pt2,21,400
-        la_pt1,22,425
-        la_pt1, la_pt2,22,425
-     slant_pt1,23,450
-     slant_pt1, slant_pt2,23,450
-     limit_pt1,24,477
-     limit_pt1, limit_pt2,24,477
-     object_pt,25,504
-     object_pt, center_pt;25,504
-void DrawFundamental(35,922
-void DrawObject(96,3158
-void LRFShow(139,4946
+LRF/SHOW/lrfshow.c,536
+#define printLOG(13,166
+#define FIRST_RANGE 16,280
+#define LAST_RANGE 17,304
+#define LRF_WINDOW_SIZE 18,327
+#define PI 19,355
+CvSize ellipse;21,376
+CvPoint lo_pt1,22,392
+CvPoint lo_pt1, lo_pt2,22,392
+        la_pt1,23,417
+        la_pt1, la_pt2,23,417
+     slant_pt1,24,442
+     slant_pt1, slant_pt2,24,442
+     limit_pt1,25,469
+     limit_pt1, limit_pt2,25,469
+     object_pt,26,496
+     object_pt, center_pt;26,496
+unsigned char flg 27,523
+void DrawFundamental(38,938
+void DrawObject(99,3174
+void LRFShow(142,4962
 
 LRF/lrf.c,73
 #define printLOG(9,113
-const char* PORT[PORT12,195
-int LRFSet(14,245
+const char* PORT[PORT12,227
+int LRFSet(14,277
 
 main.c,15
 int main(3,19

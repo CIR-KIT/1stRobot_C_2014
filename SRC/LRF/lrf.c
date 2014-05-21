@@ -6,7 +6,7 @@
 #include "lrf.h"
 
 //for debug
-#define printLOG( msg ) fprintf(stderr,"LOG : %s - line %s\n%s\n"
+#define printLOG( msg ) fprintf(stderr,"mesg : %s\nfile : %s\nline : %d\n",msg,__FILE__,__LINE__)
 
 //local define
 const char* PORT[NUM_OF_LRF] = {"/dev/ttyACM2"};
