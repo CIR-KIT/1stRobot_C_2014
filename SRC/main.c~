@@ -4,25 +4,75 @@
 
 int main(void)
 {
-  //  unsigned char i=0;
   MVcmd JScmd;
-  
-  //constract JScmd
-  JScmd.gear = FORWARD;
-  JScmd.speed = 0;
-  JScmd.dir =  KEEP;
-  JScmd.deg = 0;
-  
-  SetJoystick();
-  SetArduino(SEND_ID);
-  while(1){
-    GetJSinfo2MVcmd(&JScmd);
-    Move(JScmd.gear, JScmd.speed, JScmd.dir);
-    usleep(1000);
+  unsigned short FCEnc, RREnc, RLEnc;
+  int flg; 
+ 
+  if(!SetArduino(AR_ALL_ID));
+  else{
+    puts("Arduino Connect Failed....");
+    exit(1);
   }
 
-  CloseArduino(SEND_ID);
-  CloseJoystick();
+  puts("---------------------------------------------------------");
+  puts("\t\tStart 1st Machine program !!");
+  puts("---------------------------------------------------------");
+  puts("");
+
+  while(flg != 1 || flg != 2){
+    puts("\t\tSelect the Mode.");
+    puts("Robot Mode...1  RC Mode...2");
+    scanf("%d", &flg);
+
+    if(flg == 1){
+      puts("");
+      puts("\t\tRC Mode is selected.");
+      puts("");
+
+      //constract JScmd
+      JScmd.gear = FORWARD;
+      JScmd.speed = 0;
+      JScmd.dir =  KEEP;
+      JScmd.deg = 0;
+  
+      if(!SetJoystick());
+      else{
+	puts("JoyStick Connect Failed....");
+	exit(1);
+      }
+
+      puts("\t\tStart the RC Mode.");
+      puts("");
+      puts("Good Luck !!");
+
+      while(1){
+	GetJSinfo2MVcmd(&JScmd);
+	Move(JScmd.gear, JScmd.speed, JScmd.dir);
+      }
+      CloseJoystick();
+    }
+
+    else if(flg == 2){
+      puts("");
+      puts("\t\tRobot Mode is selected.");
+      puts("");
+
+      while(1){
+	GetEncData(FCEnc,RREnc,RLEnc);
+	printf("%d\t%d\t%d\n",FCEnc,RREnc,RLEnc);
+      }
+    }
+
+    else{
+      puts("\t\t!! Input Collect selection !!");
+      puts("");
+    }
+
+  }
+
+
+  CloseArduino(AR_ALL_ID);
+ 
 
   return 0;
 }

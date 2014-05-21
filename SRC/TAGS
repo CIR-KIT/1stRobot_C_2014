@@ -1,27 +1,29 @@
 
-Arduino/arduino.c,333
+Arduino/arduino.c,359
 #define printLOG(23,637
 #define BAUDRATE 26,757
 #define SENDSIZE 27,803
 #define RECVSIZE 28,862
 const char* PORT[PORT31,944
-int ARfd[ARfd34,1109
-struct termios ARoldtio[ARoldtio37,1202
-struct termios ARoldtio[NUM_OF_ARDUINO], ARnewtio[ARnewtio37,1202
-int SetArduino(48,1647
-void CloseArduino(82,2544
-int Move(106,3508
+int ARfd[ARfd34,1174
+struct termios ARoldtio[ARoldtio37,1267
+struct termios ARoldtio[NUM_OF_ARDUINO], ARnewtio[ARnewtio37,1267
+int SetArduino(48,1712
+void CloseArduino(113,3354
+int Move(144,4430
+int GetEncData(158,4887
 
-Arduino/arduino.h,205
+Arduino/arduino.h,237
 #define __ARDUINO__2,20
 #define NUM_OF_ARDUINO 4,41
-#define SEND_ID 5,96
-#define RECV_ID 6,153
-#define FORWARD 7,210
-#define BACK 8,263
-#define RIGHT 9,314
-#define LEFT 10,370
-#define KEEP 11,425
+#define AR_SEND_ID 5,96
+#define AR_RECV_ID 6,153
+#define AR_ALL_ID 7,210
+#define FORWARD 8,266
+#define BACK 9,319
+#define RIGHT 10,370
+#define LEFT 11,426
+#define KEEP 12,481
 
 Control/control.c,197
 #define printLOG(20,538
@@ -44,12 +46,36 @@ Control/control.h,130
 LRF/lrf.h,21
 #define __LRF__2,16
 
+LRF/SHOW/lrfshow.h,26
+#define __LRF_SHOW__2,21
+
+LRF/SHOW/lrfshow.c,510
+#define printLOG(12,165
+#define FIRST_RANGE 15,288
+#define LAST_RANGE 16,312
+#define LRF_WINDOW_SIZE 17,335
+#define PI 18,363
+CvSize ellipse;20,384
+CvPoint lo_pt1,21,400
+CvPoint lo_pt1, lo_pt2,21,400
+        la_pt1,22,425
+        la_pt1, la_pt2,22,425
+     slant_pt1,23,450
+     slant_pt1, slant_pt2,23,450
+     limit_pt1,24,477
+     limit_pt1, limit_pt2,24,477
+     object_pt,25,504
+     object_pt, center_pt;25,504
+void DrawFundamental(35,922
+void DrawObject(96,3158
+void LRFShow(139,4946
+
 LRF/lrf.c,73
 #define printLOG(9,113
 const char* PORT[PORT12,195
 int LRFSet(14,245
 
 main.c,15
-int main(5,58
+int main(3,19
 
 main.h,0

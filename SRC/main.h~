@@ -1,2 +1,3 @@
 #include "./LRF/lrf.h"
 #include "./Arduino/arduino.h"
+#include "./Control/control.h"

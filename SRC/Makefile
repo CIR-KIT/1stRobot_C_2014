@@ -1,11 +1,12 @@
 #==================================================================
 #  **Makefile for 4thRobot**
 # 
-#  Version : 3.0
+#  Version : 3.5
 #  Date    : 2014/02/15 (Ver.1.0)
 #            2014/02/27 (Ver.2.0)
 #            2014/03/06 (Ver.2.5)
 #	     2014/03/21 (Ver.3.0)
+#	     2014/05/12 (Ver.3.5)
 #  Author  : Ryodo Tanaka (Kyushu Institute of Technology)
 #==================================================================
 
@@ -19,8 +20,8 @@
 #==================================================================
 
 SRC		= main
-SUB		= arduino control
-VPATH		= $(OBJ_DIR):./LRF:./Arduino:./Control
+SUB		= arduino control lrfshow
+VPATH		= $(OBJ_DIR):./LRF/:./Arduino/:./Control/:./LRF/SHOW/
 
 #DEBUG 		= -ggdb -O0 
 OPTION  	= -Wall -O2
@@ -42,7 +43,7 @@ URG_FLG 	= `urg_c-config --cflags`
 URG_LIB 	= `urg_c-config --libs`
 
 CFLAGS 		= $(OPENCV_FLG) $(URG_FLG)
-LDLIBS		= $(OPENCV_FLG) $(URG_FLG)
+LDLIBS		= $(OPENCV_LIB) $(URG_LIB)
 
 MKFILE 		= Makefile
 TAGS		= TAGS

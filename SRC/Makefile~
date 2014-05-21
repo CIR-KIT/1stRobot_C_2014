@@ -19,8 +19,8 @@
 #==================================================================
 
 SRC		= main
-SUB		= lrf arduino control
-VPATH		= $(OBJ_DIR):./LRF:./Arduino:./Control
+SUB		= arduino control lrfshow
+VPATH		= $(OBJ_DIR):./LRF/:./Arduino/:./Control/:./LRF/SHOW/
 
 #DEBUG 		= -ggdb -O0 
 OPTION  	= -Wall -O2
