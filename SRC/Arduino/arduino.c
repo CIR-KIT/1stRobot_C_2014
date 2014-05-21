@@ -27,7 +27,7 @@
 #define RECVSIZE 10                //Recieve data size (Byte)
 
 //Serial Port path
-const char* PORT[NUM_OF_ARDUINO] = {"/dev/ttyACM1", "/dev/ttyACM1"};
+const char* PORT[NUM_OF_ARDUINO] = {"/dev/ttyACM0", "/dev/ttyACM1"};
 
 //File discripter for Arduino
 int ARfd[NUM_OF_ARDUINO];
@@ -112,7 +112,6 @@ int Move(const char DIRflg, const unsigned char speed, const char STEERflg)
   else{
     sprintf(buf, "$MV,%c%d%d%d,S%c;", DIRflg, speed/100,speed/10%10, speed%10 ,STEERflg);
     while(write(ARfd[SEND_ID], buf, SENDSIZE) != SENDSIZE);
-    usleep(2000);
   }
   return 0;
 }
