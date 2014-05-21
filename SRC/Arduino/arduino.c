@@ -28,7 +28,8 @@
 #define RECVSIZE 10                //Recieve data size (Byte)
 
 //Serial Port path
-const char* PORT[NUM_OF_ARDUINO] = {"/dev/serial/by-id/usb-Arduino__www.arduino.cc__0043_95233353131351D040D0-if00", "/dev/ttyACM1"};
+const char* PORT[NUM_OF_ARDUINO] = {"/dev/serial/by-id/usb-Arduino__www.arduino.cc__0043_95233353131351B0B131-if00
+", "/dev/ttyACM1"};
 
 //File discripter for Arduino
 int ARfd[NUM_OF_ARDUINO];
@@ -115,4 +116,8 @@ int Move(const char DIRflg, const unsigned char speed, const char STEERflg)
     while(write(ARfd[SEND_ID], buf, SENDSIZE) != SENDSIZE);
   }
   return 0;
+}
+
+int ReadEncoder()
+{
 }

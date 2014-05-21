@@ -116,3 +116,7 @@ int Move(const char DIRflg, const unsigned char speed, const char STEERflg)
   }
   return 0;
 }
+
+int ReadEncoder()
+{
+}

@@ -15,7 +15,6 @@ int main(void)
   SetJoystick();
   //Open Arduino
   SetArduino(SEND_ID);
-  SerArduino(RECV_ID);
 
   //Main Roop
   while(1){
