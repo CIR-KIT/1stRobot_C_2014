@@ -20,7 +20,7 @@
 #include "arduino.h"
 
 //for debug
-#define printLOG( msg ) fprintf(stderr,"file : %s\tline : %d\tmessage : %s\n",__FILE__,__LINE__,msg)
+#define printLOG( msg ) fprintf(stderr,"\n\tError : %s\n\tfile : %s\n\tline : %d\n",msg,__FILE__,__LINE__)
 
 //local settings 
 #define BAUDRATE B115200           //Baudrate
@@ -28,7 +28,7 @@
 #define RECVSIZE 10                //Recieve data size (Byte)
 
 //Serial Port path
-const char* PORT[NUM_OF_ARDUINO] = {"/dev/serial/by-id/usb-Arduino__www.arduino.cc__0043_95233353131351B0B131-if00", "/dev/ttyACM1"};
+const char* PORT[NUM_OF_ARDUINO] = {"/dev/serial/by-id/usb-Arduino__www.arduino.cc__0043_95233353131351B0B131-if00", "/dev/serial/by-id/usb-Arduino__www.arduino.cc__0043_A4132373935351E03241-if00"};
 
 //File discripter for Arduino
 int ARfd[NUM_OF_ARDUINO];
