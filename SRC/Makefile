@@ -19,7 +19,7 @@
 
 SRC		= main
 SUB		= lrf
-VPATH		= $(OBJ_DIR):./LRF:
+VPATH		= $(OBJ_DIR):./LRF
 
 #DEBUG 		= -ggdb -O0 
 OPTION  	= -Wall -O2
@@ -52,7 +52,7 @@ OBJS		= $(SUB:%=%.o) $(SRC).o
 
 all : $(MKFILE) $(OBJ_DIR) $(%.o) $(SRC).o $(SRC) $(TAGS)
 
-$(SRC).o : $(SRC).cpp $(SRC).hpp $(SUB:%=%.hpp) $(MKFILE)
+$(SRC).o : $(SRC).cpp $(SRC).hpp $(MKFILE)
 	$(CC) -c $< $(OPTION) $(DEBUG) $(CFLAGS) $(LDLIBS) -o $(OBJ_DIR)$@ 
 
 %.o : %.cpp %.hpp $(MKFILE)
