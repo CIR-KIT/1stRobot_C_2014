@@ -1,11 +1,5 @@
 
-LRF/lrf.c,16
-void test(3,18
-
-LRF/lrf.h,21
+LRF/lrf.hpp,21
 #define __LRF__2,16
 
-main.c,15
-int main(3,19
-
-main.h,0
+main.hpp,0

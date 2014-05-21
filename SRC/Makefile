@@ -1,16 +1,17 @@
 #==================================================================
 #  **Makefile for 4thRobot**
 # 
-#  Version : 1.0
-#  Date    : 2014/02/15
+#  Version : 2.0
+#  Date    : 2014/02/15 (Ver.1.0)
+#            2014/02/27 (Ver.2.0)
 #  Author  : Ryodo Tanaka (Kyushu Institute of Technology)
 #==================================================================
 
 #**User Defile**===================================================
 #  How to Use
-#    1. SRC に、main()関数を含むCソースコードの名前を指定。
-#    2. SUB に、分割コンパイルするCソースコードの名前を指定。
-#    3. VPATH に、分割コンパイルするCソースコードのある場所を指定。
+#    1. SRC に、main()関数を含むCPPソースコードの名前を指定。
+#    2. SUB に、分割コンパイルするCPPソースコードの名前を指定。
+#    3. VPATH に、分割コンパイルするCPPソースコードのある場所を指定。
 #       ディレクトリを新たに追加するときは、":" を使って追加すること。
 #    4. OPTION や DEBUG に使うgccオプションを指定。
 #==================================================================
@@ -30,7 +31,7 @@ OPTION  	= -Wall -O2
 #  Do not change !
 #==================================================================
 
-CC 		= gcc
+CC 		= g++
 
 OPENCV_FLG	= `pkg-config --cflags opencv`
 OPENCV_LIB 	= `pkg-config --libs opencv`
@@ -50,10 +51,10 @@ OBJS		= $(SUB:%=%.o) $(SRC).o
 
 all : $(MKFILE) $(OBJ_DIR) $(OBJS) $(SRC) $(TAGS)
 
-$(SRC).o : $(SRC).c $(SRC).h $(SUB:%=%.h) $(MKFILE)
+$(SRC).o : $(SRC).cpp $(SRC).hpp $(SUB:%=%.hpp) $(MKFILE)
 	$(CC) -c $< $(OPTION) $(DEBUG) $(CFLAGS) $(LDLIBS) -o $(OBJ_DIR)$@ 
 
-%.o : %.c %.h $(MKFILE)
+%.o : %.cpp %.hpp $(MKFILE)
 	$(CC) -c $< $(OPTION) $(DEBUG) $(CFLAGS) $(LDLIBS) -o $(OBJ_DIR)$@ 
 
 $(SRC) : $(OBJS) $(MKFILE)
@@ -63,7 +64,8 @@ $(OBJ_DIR) :
 	mkdir $@
 
 $(TAGS) : $(OBJS)
-	etags `find ./ -name "*.[ch]"`
+	etags `find ./ -name "*.cpp"` 
+	etags `find ./ -name "*.hpp"` 
 
 clean :
 	rm -r $(OBJS:%=$(OBJ_DIR)%) $(SRC) $(TAGS)
