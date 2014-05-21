@@ -70,6 +70,7 @@ int main(void)
 
 
   CloseArduino(AR_ALL_ID);
+  CloseJoystick();
  
 
   return 0;

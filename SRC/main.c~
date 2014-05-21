@@ -1,6 +1,4 @@
 #include "main.h"
-#include <stdio.h>
-#include <unistd.h>
 
 int main(void)
 {
@@ -8,25 +6,25 @@ int main(void)
   unsigned short FCEnc, RREnc, RLEnc;
   int flg; 
  
-  if(!SetArduino(AR_ALL_ID));
-  else{
-    puts("Arduino Connect Failed....");
-    exit(1);
-  }
-
-  puts("---------------------------------------------------------");
-  puts("\t\tStart 1st Machine program !!");
-  puts("---------------------------------------------------------");
-  puts("");
+  puts("------------------------------------------------------------");
+  puts("\t\tWelcome to KIT-C1 program !!");
+  puts("------------------------------------------------------------");
 
   while(flg != 1 || flg != 2){
-    puts("\t\tSelect the Mode.");
-    puts("Robot Mode...1  RC Mode...2");
-    scanf("%d", &flg);
+    puts("Select the Mode.");
+    puts("Robot Mode...1\nRC    Mode...2");
+    if(scanf("%d",&flg) < 0)
+      flg = 0;
+
+    if(!SetArduino(AR_ALL_ID));
+    else{
+      puts("Arduino Connect Failed....");
+      exit(1);
+    }
 
     if(flg == 1){
       puts("");
-      puts("\t\tRC Mode is selected.");
+      puts("\n\t\tRC Mode is selected.");
       puts("");
 
       //constract JScmd
@@ -41,9 +39,9 @@ int main(void)
 	exit(1);
       }
 
-      puts("\t\tStart the RC Mode.");
+      puts("\n\t\tStart the RC Mode.");
       puts("");
-      puts("Good Luck !!");
+      puts("\t\tGood Luck !!");
 
       while(1){
 	GetJSinfo2MVcmd(&JScmd);
@@ -58,7 +56,7 @@ int main(void)
       puts("");
 
       while(1){
-	GetEncData(FCEnc,RREnc,RLEnc);
+	GetEncData(&FCEnc,&RREnc,&RLEnc);
 	printf("%d\t%d\t%d\n",FCEnc,RREnc,RLEnc);
       }
     }
