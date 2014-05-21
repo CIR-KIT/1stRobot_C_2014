@@ -1,12 +1,13 @@
-/*--------------------------------------------------------
+/*-----------------------------------------------------------
   Name    : arduino.c
-  Version : 1.0
-  Date    : 2014/03/21
+  Version : Ver 1.5
+  Date    : 2014/03/21 (Ver 1.0) First Release
+            2014/03/29 (Ver 1.5) Change Arduino path (by id)
   Author  : Ryodo Tanaka (Kyushu Institute of Technology)
   About   : Comunicate with arduino,like...
             to move the robot, the LRF,
 	    or to get encoder (or any sensor) data.
---------------------------------------------------------*/
+-------------------------------------------------------------*/
 
 //local include
 #include <stdio.h>
@@ -27,7 +28,7 @@
 #define RECVSIZE 10                //Recieve data size (Byte)
 
 //Serial Port path
-const char* PORT[NUM_OF_ARDUINO] = {"/dev/ttyACM0", "/dev/ttyACM1"};
+const char* PORT[NUM_OF_ARDUINO] = {"/dev/serial/by-id/usb-Arduino__www.arduino.cc__0043_95233353131351D040D0-if00", "/dev/ttyACM1"};
 
 //File discripter for Arduino
 int ARfd[NUM_OF_ARDUINO];

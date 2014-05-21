@@ -1,7 +1,8 @@
 
-LRF/lrf.c,37
-#define pLOG(6,66
-int LRFSet(9,130
+LRF/lrf.c,73
+#define printLOG(9,113
+const char* PORT[PORT12,195
+int LRFSet(14,245
 
 LRF/lrf.h,21
 #define __LRF__2,16
@@ -17,18 +18,18 @@ Arduino/arduino.h,205
 #define LEFT 10,370
 #define KEEP 11,425
 
-Arduino/arduino.c,332
-#define printLOG(22,540
-#define BAUDRATE 25,660
-#define SENDSIZE 26,706
-#define RECVSIZE 27,765
-const char* PORT[PORT30,847
-int ARfd[ARfd33,947
-struct termios ARoldtio[ARoldtio36,1040
-struct termios ARoldtio[NUM_OF_ARDUINO], ARnewtio[ARnewtio36,1040
-int SetArduino(47,1485
-void CloseArduino(81,2382
-int Move(105,3346
+Arduino/arduino.c,333
+#define printLOG(23,637
+#define BAUDRATE 26,757
+#define SENDSIZE 27,803
+#define RECVSIZE 28,862
+const char* PORT[PORT31,944
+int ARfd[ARfd34,1109
+struct termios ARoldtio[ARoldtio37,1202
+struct termios ARoldtio[NUM_OF_ARDUINO], ARnewtio[ARnewtio37,1202
+int SetArduino(48,1647
+void CloseArduino(82,2544
+int Move(106,3508
 
 main.c,15
 int main(5,58

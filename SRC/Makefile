@@ -19,7 +19,7 @@
 #==================================================================
 
 SRC		= main
-SUB		= lrf arduino control
+SUB		= arduino control
 VPATH		= $(OBJ_DIR):./LRF:./Arduino:./Control
 
 #DEBUG 		= -ggdb -O0 

@@ -9,5 +9,5 @@
 int LRFSet(urg_t* urg)
 {
 
-
+  return 0;
 }
