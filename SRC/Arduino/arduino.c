@@ -25,7 +25,7 @@
 //local settings 
 #define BAUDRATE B115200           //Baudrate
 #define SENDSIZE 13                //Send data size (Byte)
-#define RECVSIZE 24                //Recieve data size (Byte)
+#define RECVSIZE 23                //Recieve data size (Byte)
 
 //Serial Port path
 const char* PORT[NUM_OF_ARDUINO] = {"/dev/serial/by-id/usb-Arduino__www.arduino.cc__0043_95233353131351B0B131-if00", "/dev/serial/by-id/usb-Arduino__www.arduino.cc__0043_A4132373935351E03241-if00"};
@@ -159,25 +159,17 @@ int GetEncData(unsigned short *fcenc, unsigned short *rrenc, unsigned short *rle
 {
   char buf[RECVSIZE];
 
+  char i;
+
   do{
     while(read(ARfd[AR_RECV_ID], buf, RECVSIZE) != RECVSIZE);
-    printf("here : %s\n",buf);
   }while(buf[0] != '$'|| buf[1] != 'E' || buf[2] != 'N' || buf[3] != 'C' || buf[RECVSIZE-1] != ';');
 
-
-  *fcenc = atoi(&buf[5])*10000+atoi(&buf[6])*1000+atoi(&buf[7])*100+atoi(&buf[8])*10+atoi(&buf[9]);
-  *rrenc = atoi(&buf[11])*10000+atoi(&buf[12])*1000+atoi(&buf[13])*100+atoi(&buf[14])*10+atoi(&buf[15]);
-  *rlenc = atoi(&buf[17])*10000+atoi(&buf[18])*1000+atoi(&buf[19])*100+atoi(&buf[20])*10+atoi(&buf[21]);
+  *fcenc = atoi(&buf[5]);
+  *rrenc = atoi(&buf[11]);
+  *rlenc = atoi(&buf[17]);
 
   return 0;
 
 }
-
-
-
-
-
-
-
-
 

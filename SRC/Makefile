@@ -42,8 +42,8 @@ OPENCV_LIB 	= `pkg-config --libs opencv`
 URG_FLG 	= `urg_c-config --cflags`
 URG_LIB 	= `urg_c-config --libs`
 
-CFLAGS 		= $(OPENCV_FLG) $(URG_FLG)
-LDLIBS		= $(OPENCV_LIB) $(URG_LIB)
+CFLAGS 		= $(URG_FLG) $(OPENCV_FLG) 
+LDLIBS		= $(URG_LIB) $(OPENCV_LIB) 
 
 MKFILE 		= Makefile
 TAGS		= TAGS
@@ -51,7 +51,6 @@ OBJ_DIR		= ./bin/
 .PHONY: clean
 
 OBJS		= $(SUB:%=%.o) $(SRC).o
-
 
 all : $(MKFILE) $(OBJ_DIR) $(%.o) $(SRC).o $(SRC) $(TAGS)
 

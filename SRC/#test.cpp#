@@ -1,4 +1,0 @@
-typedef struct{
-  unsigned int a;
-  unsigned int b;
-} tanaka;

@@ -66,6 +66,19 @@ int main(void)
 	puts("Arduino Connect Failed....");
 	exit(1);
       }
+      //constract JScmd
+      JScmd.gear = FORWARD;
+      JScmd.speed = 0;
+      JScmd.dir =  KEEP;
+      JScmd.deg = 0;
+  
+      if(!SetJoystick());
+      else{
+	puts("JoyStick Connect Failed....");
+	exit(1);
+      }
+
+
 
       puts("");
       puts("------------------------------------------------------------");
@@ -73,7 +86,8 @@ int main(void)
       puts("------------------------------------------------------------");
 
       while(1){
-	puts("here");
+	GetJSinfo2MVcmd(&JScmd);
+	Move(JScmd.gear, JScmd.speed, JScmd.dir);
 	GetEncData(&FCEnc,&RREnc,&RLEnc);
 	printf("%d\t%d\t%d\n",FCEnc,RREnc,RLEnc);
       }
