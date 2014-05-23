@@ -85,9 +85,10 @@ int main(void)
       puts("\t\tStart the Robot Mode.\n\t\tLet's Go !! ('o')ﾉｼ");
       puts("------------------------------------------------------------");
 
+      sleep(2);
       while(1){
-	GetJSinfo2MVcmd(&JScmd);
-	Move(JScmd.gear, JScmd.speed, JScmd.dir);
+	//	GetJSinfo2MVcmd(&JScmd);
+	//	Move(JScmd.gear, JScmd.speed, JScmd.dir);
 	GetEncData(&FCEnc,&RREnc,&RLEnc);
 	printf("%d\t%d\t%d\n",FCEnc,RREnc,RLEnc);
       }

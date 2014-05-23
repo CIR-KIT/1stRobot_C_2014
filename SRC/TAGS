@@ -5,13 +5,13 @@ Arduino/arduino.c,359
 #define SENDSIZE 27,800
 #define RECVSIZE 28,859
 const char* PORT[PORT31,941
-int ARfd[ARfd34,1171
-struct termios ARoldtio[ARoldtio37,1264
-struct termios ARoldtio[NUM_OF_ARDUINO], ARnewtio[ARnewtio37,1264
-int SetArduino(48,1709
-void CloseArduino(113,3345
-int Move(144,4421
-int GetEncData(158,4878
+int ARfd[ARfd34,1170
+struct termios ARoldtio[ARoldtio37,1263
+struct termios ARoldtio[NUM_OF_ARDUINO], ARnewtio[ARnewtio37,1263
+int SetArduino(48,1708
+void CloseArduino(113,3344
+int Move(144,4420
+int GetEncData(158,4877
 
 Arduino/arduino.h,237
 #define __ARDUINO__2,20

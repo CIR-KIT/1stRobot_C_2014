@@ -28,7 +28,7 @@
 #define RECVSIZE 23                //Recieve data size (Byte)
 
 //Serial Port path
-const char* PORT[NUM_OF_ARDUINO] = {"/dev/serial/by-id/usb-Arduino__www.arduino.cc__0043_95233353131351B0B131-if00", "/dev/serial/by-id/usb-Arduino__www.arduino.cc__0043_A4132373935351E03241-if00"};
+const char* PORT[NUM_OF_ARDUINO] = {"/dev/serial/by-id/usb-Arduino__www.arduino.cc__0043_95233353131351B0B131-if00","/dev/serial/by-id/usb-Arduino__www.arduino.cc__0043_A4132373935351E03241-if00"};
 
 //File discripter for Arduino
 int ARfd[NUM_OF_ARDUINO];
@@ -158,12 +158,21 @@ int Move(const char DIRflg, const unsigned char speed, const char STEERflg)
 int GetEncData(unsigned short *fcenc, unsigned short *rrenc, unsigned short *rlenc)
 {
   char buf[RECVSIZE];
-
-  char i;
+  int i;
 
   do{
-    while(read(ARfd[AR_RECV_ID], buf, RECVSIZE) != RECVSIZE);
-  }while(buf[0] != '$'|| buf[1] != 'E' || buf[2] != 'N' || buf[3] != 'C' || buf[RECVSIZE-1] != ';');
+    for(i=0; i<RECVSIZE; i++){
+      while(read(ARfd[AR_RECV_ID], &buf[i], 1) != 1);
+      switch(i){
+      case 0 :
+	if(buf[0] != '$')
+	  i--;
+	break;
+      default :
+	break;
+      }
+    }
+  }while(buf[1] != 'E' || buf[2] != 'N' || buf[3] != 'C' || buf[RECVSIZE-1] != ';');
 
   *fcenc = atoi(&buf[5]);
   *rrenc = atoi(&buf[11]);
