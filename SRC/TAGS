@@ -25,6 +25,11 @@ Arduino/arduino.h,237
 #define LEFT 11,426
 #define KEEP 12,481
 
+main.h,108
+unsigned short FCEnc,15,236
+unsigned short FCEnc, RREnc,15,236
+unsigned short FCEnc, RREnc, RLEnc;15,236
+
 Control/control.c,197
 #define printLOG(20,538
 #define PORT 23,652
@@ -43,40 +48,50 @@ Control/control.h,130
   unsigned char deg;8,105
 } MVcmd;9,126
 
-LRF/lrf.h,21
+LRF/lrf.h,242
 #define __LRF__2,16
+#define NUM_OF_LRF 4,33
+#define LRF_ALL_ID 5,54
+#define LRF_FRONT_ID 6,75
+#define LRF_REAR_ID 7,98
+#define CAPTURE_TIMES 8,120
+  long* data;11,161
+  long* intensity;12,175
+  long datasize;13,194
+} LRFData;14,211
 
-LRF/SHOW/lrfshow.h,26
+LRF/SHOW/lrfshow.h,56
 #define __LRF_SHOW__2,21
+#define LRF_WINDOW_SIZE 7,81
 
-LRF/SHOW/lrfshow.c,536
-#define printLOG(13,166
-#define FIRST_RANGE 16,280
-#define LAST_RANGE 17,304
-#define LRF_WINDOW_SIZE 18,327
-#define PI 19,355
-CvSize ellipse;21,376
-CvPoint lo_pt1,22,392
-CvPoint lo_pt1, lo_pt2,22,392
-        la_pt1,23,417
-        la_pt1, la_pt2,23,417
-     slant_pt1,24,442
-     slant_pt1, slant_pt2,24,442
-     limit_pt1,25,469
-     limit_pt1, limit_pt2,25,469
-     object_pt,26,496
-     object_pt, center_pt;26,496
-unsigned char flg 27,523
-void DrawFundamental(38,938
-void DrawObject(99,3174
-void LRFShow(142,4962
+LRF/SHOW/lrfshow.c,399
+#define FIRST_RANGE 10,130
+#define LAST_RANGE 11,154
+#define PI 12,177
+CvSize ellipse;14,198
+lo_pt1,16,222
+lo_pt1, lo_pt2,16,222
+  la_pt1,17,239
+  la_pt1, la_pt2,17,239
+  slant_pt1,18,258
+  slant_pt1, slant_pt2,18,258
+  limit_pt1,19,282
+  limit_pt1, limit_pt2,19,282
+  object_pt,20,306
+  center_pt;21,320
+void draw_fundamental(31,725
+void draw_object(93,2959
+void lrf_show(136,4749
 
-LRF/lrf.c,73
-#define printLOG(9,113
-const char* PORT[PORT12,227
-int LRFSet(14,277
+LRF/lrf.c,199
+#define printLOG(10,133
+const char* SERIAL_PORT[SERIAL_PORT13,247
+const char* ETHER_PORT[ETHER_PORT14,364
+urg_t urg[urg17,431
+int SetLRF(20,456
+int LRFDistance(45,991
+void CloseLRF(68,1394
 
-main.c,15
+main.c,36
 int main(3,19
-
-main.h,0
+int StartUP(51,1052

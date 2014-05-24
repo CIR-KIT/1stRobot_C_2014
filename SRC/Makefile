@@ -20,10 +20,10 @@
 #==================================================================
 
 SRC		= main
-SUB		= arduino control lrfshow
-VPATH		= $(OBJ_DIR):./LRF/:./Arduino/:./Control/:./LRF/SHOW/
+SUB		= arduino control lrf lrfshow
+VPATH		= $(OBJ_DIR):./LRF/:./Arduino/:./Control/:./LRF/:./LRF/SHOW/
 
-#DEBUG 		= -ggdb -O0 
+DEBUG 		= -ggdb -O0 
 OPTION  	= -Wall -O2
 
 #==================================================================

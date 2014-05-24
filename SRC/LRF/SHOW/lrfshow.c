@@ -1,43 +1,37 @@
 //local include
 #include <stdio.h>
 #include <stdlib.h>
-#include <math.h>
 #include <cv.h>
 #include <highgui.h>
-//#include <core.h>
 
 #include "lrfshow.h"
-
-//for debug
-
-#define printLOG( msg ) fprintf(stderr,"mesg : %s\nfile : %s\nline : %d\n",msg,__FILE__,__LINE__)
 
 //local define
 #define FIRST_RANGE -45
 #define LAST_RANGE 225
-#define LRF_WINDOW_SIZE 800
 #define PI 3.141592
 
 CvSize ellipse;
-CvPoint lo_pt1, lo_pt2, 
-        la_pt1, la_pt2, 
-     slant_pt1, slant_pt2,
-     limit_pt1, limit_pt2,
-     object_pt, center_pt;
-unsigned char flg = 0;
-
+CvPoint
+lo_pt1, lo_pt2, 
+  la_pt1, la_pt2, 
+  slant_pt1, slant_pt2,
+  limit_pt1, limit_pt2,
+  object_pt, 
+  center_pt;
 
 /*================================================================
-  Name     : DrawFundamental
+  Name     : draw_fundamental
   Argument : IplImage* img : 描写する画像のIplImage構造体
   Return   : no return
   About    : x軸y軸を描写した後、
 　　　　　　　-45〜225(deg)までの円弧を描写する
   Author   : Ryodo Tanaka
 =================================================================*/
-void DrawFundamental(IplImage* img)
-{ 
-  int i; 
+void draw_fundamental(IplImage* img)
+{
+ 
+  static  int i; 
 
   //原点座標
   center_pt.x = (int)(img -> width / 2);
@@ -76,7 +70,7 @@ void DrawFundamental(IplImage* img)
   /* cvLine(img,center_pt,limit_pt1,CV_RGB(255,0,0),1,8,0); */
   /* cvLine(img,center_pt,limit_pt2,CV_RGB(255,0,0),1,8,0); */
 
-  //FIRSTRANGE〜LASTRANGE(deg)までの円を40pix(=1m)おきに描写する
+  //-45〜225(deg)までの円を40pix(=1m)おきに描写する
   for(i=0; i<5; i++){
     ellipse.width = (i+1)*(img->width/2)/5;
     ellipse.height = (i+1)*(img->height/2)/5;
@@ -86,7 +80,7 @@ void DrawFundamental(IplImage* img)
 }
 
 /*=================================================================
-  Name     : DrawObject
+  Name     : draw_object
   Argument : IplImage* img   : 描写する画像のIplImage構造体
              long* lrf_data : LRFから返される物体までの距離(mm)
              int lrf_data_max : LRF取得データ数
@@ -96,7 +90,7 @@ void DrawFundamental(IplImage* img)
 　　　　　　　情報を読み取り、ラインを引く。
   Author   : Ryodo Tanaka
 =================================================================*/
-void DrawObject(IplImage* img, const long lrf_data_max, const long *lrf_data,  const long max_dist)
+void draw_object(IplImage* img, const long lrf_data_max, const long *lrf_data,  const long max_dist)
 {
  
   int i;
@@ -127,7 +121,7 @@ void DrawObject(IplImage* img, const long lrf_data_max, const long *lrf_data,  c
 }
 
 /*=========================================================================================
-  Name     : LRFShow
+  Name     : lrf_show
   Argument : IplImage* img : 表示に使うIplImage構造体
              char* window_name  : ウィンドウ名
              long* lrf_data : LRF取得データ関数でコピーして使う
@@ -139,23 +133,10 @@ void DrawObject(IplImage* img, const long lrf_data_max, const long *lrf_data,  c
   About    : LRFより取得したデータをOpenCVを用いて表示する
   Author   : Ryodo Tanaka
 =========================================================================================*/
-void LRFShow(IplImage* img, const long lrf_data_max, const long *lrf_data, const long max_dist, const char* lrf_window_name)
+void lrf_show(IplImage* img, const long lrf_data_max, const long *lrf_data, const long max_dist, const char* lrf_window_name)
 {
-  switch(flg){
-  case 0 :
-    img = cvCreateImage(cvSize(LRF_WINDOW_SIZE,LRF_WINDOW_SIZE), IPL_DEPTH_8U, 3);
-    if(!img){
-      printLOG("cvCreateImage() LRFShow");
-      exit(1);
-    }
-    flg++;
-    break;
-  default :
-    break;
-  }
-
-  cvZero(img);
-  DrawObject(img, lrf_data_max, lrf_data, max_dist);
-  DrawFundamental(img);
-  cvShowImage(lrf_window_name,img);
+  // cvZero(img);
+  //  draw_object(img, lrf_data_max, lrf_data, max_dist);
+  //draw_fundamental(img);
+  // cvShowImage(lrf_window_name,img);
 }
