@@ -155,6 +155,21 @@ int Move(const char DIRflg, const unsigned char speed, const char STEERflg)
   return 0;
 }
 
+
+/*---------------------------------------------------------------
+  Name     : GetEncData
+  Argument : *fcenc, *rrenc, *rlenc
+  Return   : 0(succeed), other(failed)
+  About    : Get Encoder Data from Arduino with Encoder command.
+             Encoder command chart
+	     $ENC,fffff,rrrrr,lllll;
+	     fffff is Front center's encoder data (00000~65535).
+	     rrrrr is Rear Right's encoder data (00000~65535).
+	     lllll is Rear Left's encoder data (00000~65535).
+  Version  : Ver 1.0
+  Date     : 2014/05/24
+  Author   : Ryodo Tanaka (Kyushu Institute of Technology)
+----------------------------------------------------------------*/
 int GetEncData(unsigned short *fcenc, unsigned short *rrenc, unsigned short *rlenc)
 {
   char buf[RECVSIZE];

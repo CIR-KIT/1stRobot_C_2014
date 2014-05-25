@@ -11,7 +11,7 @@ struct termios ARoldtio[NUM_OF_ARDUINO], ARnewtio[ARnewtio37,1263
 int SetArduino(48,1708
 void CloseArduino(113,3344
 int Move(144,4420
-int GetEncData(158,4877
+int GetEncData(173,5513
 
 Arduino/arduino.h,237
 #define __ARDUINO__2,20
@@ -25,10 +25,11 @@ Arduino/arduino.h,237
 #define LEFT 11,426
 #define KEEP 12,481
 
-main.h,108
-unsigned short FCEnc,15,236
-unsigned short FCEnc, RREnc,15,236
-unsigned short FCEnc, RREnc, RLEnc;15,236
+main.h,132
+unsigned short FCEnc,15,257
+unsigned short FCEnc, RREnc,15,257
+unsigned short FCEnc, RREnc, RLEnc;15,257
+LRFData lrf[lrf16,362
 
 Control/control.c,197
 #define printLOG(20,538
@@ -51,47 +52,52 @@ Control/control.h,130
 LRF/lrf.h,242
 #define __LRF__2,16
 #define NUM_OF_LRF 4,33
-#define LRF_ALL_ID 5,54
-#define LRF_FRONT_ID 6,75
-#define LRF_REAR_ID 7,98
+#define LRF_FRONT_ID 5,54
+#define LRF_REAR_ID 6,77
+#define LRF_ALL_ID 7,99
 #define CAPTURE_TIMES 8,120
   long* data;11,161
-  long* intensity;12,175
-  long datasize;13,194
-} LRFData;14,211
+  long* intensity;12,200
+  long datasize;13,240
+} LRFData;14,281
 
-LRF/SHOW/lrfshow.h,56
+LRF/SHOW/lrfshow.h,109
 #define __LRF_SHOW__2,21
-#define LRF_WINDOW_SIZE 7,81
+#define FIRST_RANGE 4,43
+#define LAST_RANGE 5,106
+#define LRF_WINDOW_SIZE 6,168
 
-LRF/SHOW/lrfshow.c,399
-#define FIRST_RANGE 10,130
-#define LAST_RANGE 11,154
-#define PI 12,177
-CvSize ellipse;14,198
-lo_pt1,16,222
-lo_pt1, lo_pt2,16,222
-  la_pt1,17,239
-  la_pt1, la_pt2,17,239
-  slant_pt1,18,258
-  slant_pt1, slant_pt2,18,258
-  limit_pt1,19,282
-  limit_pt1, limit_pt2,19,282
-  object_pt,20,306
-  center_pt;21,320
-void draw_fundamental(31,725
-void draw_object(93,2959
-void lrf_show(136,4749
+LRF/SHOW/lrfshow.c,526
+#define printLOG(13,166
+#define PI 16,280
+CvSize ellipse;18,301
+CvPoint lo_pt1,19,317
+CvPoint lo_pt1, lo_pt2,19,317
+        la_pt1,20,342
+        la_pt1, la_pt2,20,342
+     slant_pt1,21,367
+     slant_pt1, slant_pt2,21,367
+     limit_pt1,22,394
+     limit_pt1, limit_pt2,22,394
+     object_pt,23,421
+     object_pt, center_pt;23,421
+unsigned char flg 24,448
+IplImage *img[img26,472
+int SetLRFShow(37,881
+void CloseLRFShow(71,1733
+void DrawFundamental(91,2319
+void DrawObject(152,4555
+int LRFShow(195,6343
 
-LRF/lrf.c,199
-#define printLOG(10,133
-const char* SERIAL_PORT[SERIAL_PORT13,247
-const char* ETHER_PORT[ETHER_PORT14,364
-urg_t urg[urg17,431
-int SetLRF(20,456
-int LRFDistance(45,991
-void CloseLRF(68,1394
+LRF/lrf.c,202
+#define printLOG(17,462
+const char* SERIAL_PORT[SERIAL_PORT20,576
+const char* ETHER_PORT[ETHER_PORT21,693
+urg_t urg[urg24,760
+int SetLRF(35,1163
+void CloseLRF(95,2640
+int LRFDistance(120,3240
 
 main.c,36
 int main(3,19
-int StartUP(51,1052
+int StartUP(60,1258

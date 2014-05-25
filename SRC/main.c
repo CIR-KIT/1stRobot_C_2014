@@ -4,46 +4,55 @@ int main(void)
 {
 
   MVcmd JScmd;
-  LRFData lrf;
   int i;
-  IplImage *lrf_img = cvCreateImage(cvSize(LRF_WINDOW_SIZE,LRF_WINDOW_SIZE), IPL_DEPTH_8U, 3);
-
-  switch(StartUP()){
+ 
+  switch(StartUP()){ 
+ 
   case 1 : //RC Mode 
+    
+    //Construct JScmd===============
     JScmd.gear = FORWARD;
     JScmd.speed = 0;
     JScmd.dir =  KEEP;
     JScmd.deg = 0;
+    //==============================
+
+    //Main loop(RC Mode)===========================
     while(1){
       GetJSinfo2MVcmd(&JScmd);
       Move(JScmd.gear, JScmd.speed, JScmd.dir);
     }
-    CloseJoystick();
+    //=============================================
+
+    //Release Jscmd
+    CloseJoystick();    
     break;
 
   case 2 : //Robot Mode
-    SetLRF(&lrf, LRF_FRONT_ID);
-    printf("%d\n",malloc_usable_size(lrf.data)/8);
+
+    sleep(2); // Wait to start until 2 seconds 
+
+    //Main loop(Robot Mode)======================================================
+    while(1){
+      LRFDistance(lrf, LRF_ALL_ID);
+      if(LRFShow(LRF_FRONT_ID,lrf[LRF_FRONT_ID].datasize,lrf[LRF_FRONT_ID].data,5000,"FRONT LRF") == 27)
+	break;
+    }    
     /* while(1){ */
-    /*   LRFDistance(&lrf, LRF_FRONT_ID); */
-    /*   puts("Data"); */
-    /*   for(i=0; i,lrf.datasize; i++){ */
-    /* 	printf("%ld,",lrf.data[i]); */
-    /*   } */
-    /*   puts(""); */
-    //lrf_show(lrf_img,lrf.datasize,lrf.data,5000,"LRF");
-    //}    
-  /* sleep(2); */
-  /* while(1){ */
-  /*   GetEncData(&FCEnc,&RREnc,&RLEnc); */
-  /*   printf("%d\t%d\t%d\n",FCEnc,RREnc,RLEnc); */
-  /* } */
-  CloseLRF(&lrf, LRF_FRONT_ID);
-  break;
-}
+    /*   GetEncData(&FCEnc,&RREnc,&RLEnc); */
+    /*   printf("%d\t%d\t%d\n",FCEnc,RREnc,RLEnc); */
+    /* } */
+    //===========================================================================
+
+    //Close LRF connection     
+    CloseLRF(lrf, LRF_ALL_ID);
+    //Rlease LRFShow
+    CloseLRFShow(LRF_ALL_ID);
+    break;
+  }
 
   CloseArduino(AR_ALL_ID);
-
+ 
   return 0;
 }
 
@@ -56,7 +65,7 @@ int StartUP(void)
   puts("\t\tWelcome to KIT-C1 program !!");
   puts("------------------------------------------------------------");
 
-  //Select the Mode================================================
+  //Select the Mode=========================================================================
   while(flg != '1' && flg != '2'){
     puts("Select the Mode.");
     puts("RC    Mode...1\nRobot Mode...2");
@@ -82,24 +91,39 @@ int StartUP(void)
       puts("");
     }
   }
-  //==============================================================
+  //=========================================================================================
 
   //Connection Set up============================================
   //Arduino setup
   if(!SetArduino(AR_ALL_ID));
   else{
-    puts("Arduino Connect Failed....");
+    puts("Arduino Connect is Failed....");
     exit(1);
   }
 
-  //Joy Stick set up
-  if(flg == '1'){
-    if(!SetJoystick());
-    else{
-      puts("JoyStick Connect Failed....");
+  switch(flg){
+  case '1' :
+    //Joy Stick set up
+    if(SetJoystick()){
+      puts("JoyStick Connect is Failed....");
       exit(1);
     }
-  } else ;
+    break;
+
+  case '2' :
+    //LRF set up
+    if(SetLRF(lrf, LRF_ALL_ID)){
+      puts("LRF Connect is Failed....");
+      exit(1);
+    }
+    //LRFShow set up
+    if(SetLRFShow(LRF_ALL_ID)){
+      puts("LRFShow Set up is Failed....");
+      exit(1);
+    }
+  } 
+
+
   //===============================================================
 
 
@@ -123,5 +147,4 @@ int StartUP(void)
   }
 
   return atoi(&flg);
-
 }

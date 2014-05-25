@@ -9,10 +9,12 @@
 #include "lrfshow.h"
 
 //for debug
-
-#define printLOG( msg ) fprintf(stderr,"mesg : %s\nfile : %s\nline : %d\n",msg,__FILE__,__LINE__)
+#define printLOG( msg ) fprintf(stderr,"\n\tError : %s\n\tfile : %s\n\tline : %d\n",msg,__FILE__,__LINE__)
 
 //local define
+#define FIRST_RANGE -45
+#define LAST_RANGE 225
+#define LRF_WINDOW_SIZE 800
 #define PI 3.141592
 
 CvSize ellipse;
@@ -23,62 +25,6 @@ CvPoint lo_pt1, lo_pt2,
      object_pt, center_pt;
 unsigned char flg = 0;
 
-IplImage *img[NUM_OF_LRF];     //IplImage for LRFShow
-
-/*-----------------------------------------------------------
-  Name     : SetLRFShow
-  Argument : int id (LRF ID)
-  Return   : 0 (success) other(failed) 
-  About    : Setup for LRFShow 
-  Version  : Ver 1.0
-  Date     : 2014/05/25
-  Author   : Ryodo Tanaka (Kyushu Institute of Technology)
-------------------------------------------------------------*/
-int SetLRFShow(const int id)
-{
-  int i;
-
-  if(id == LRF_ALL_ID){
-    img[i] = cvCreateImage(cvSize(LRF_WINDOW_SIZE,LRF_WINDOW_SIZE), IPL_DEPTH_8U, 3);
-    if(!img[i]){
-      printLOG("cvCreateImage() LRFShow");
-      exit(1);
-    }
-  }
-  else {
-    img[id] = cvCreateImage(cvSize(LRF_WINDOW_SIZE,LRF_WINDOW_SIZE), IPL_DEPTH_8U, 3);
-    if(!img[id]){
-      printLOG("cvCreateImage() LRFShow");
-      exit(1);
-    }
-
-  }
- 
-  puts("LRFShow Set up is succeed ...");
-
-  return 0;
-}
-
-/*-----------------------------------------------------------
-  Name     : CloseLRFShow
-  Argument : int id (LRF ID)
-  Return   : 0 (success) other(failed) 
-  About    : Free IplImage & Windows for LRFShow 
-  Version  : Ver 1.0
-  Date     : 2014/05/25
-  Author   : Ryodo Tanaka (Kyushu Institute of Technology)
-------------------------------------------------------------*/
-void CloseLRFShow(const int id)
-{
-  int i;
-
-  cvDestroyAllWindows();
-  if(i == LRF_ALL_ID)
-    for(i=0; i<NUM_OF_LRF; i++)
-      cvReleaseImage(&img[i]);
-  else  
-    cvReleaseImage(&img[id]);
-}
 
 /*================================================================
   Name     : DrawFundamental
@@ -192,14 +138,23 @@ void DrawObject(IplImage* img, const long lrf_data_max, const long *lrf_data,  c
   About    : LRFより取得したデータをOpenCVを用いて表示する
   Author   : Ryodo Tanaka
 =========================================================================================*/
-int LRFShow(const int id, const long lrf_data_max, const long *lrf_data, const long max_dist, const char* lrf_window_name)
+void LRFShow(IplImage* img, const long lrf_data_max, const long *lrf_data, const long max_dist, const char* lrf_window_name)
 {
+  switch(flg){
+  case 0 :
+    img = cvCreateImage(cvSize(LRF_WINDOW_SIZE,LRF_WINDOW_SIZE), IPL_DEPTH_8U, 3);
+    if(!img){
+      printLOG("cvCreateImage() LRFShow");
+      exit(1);
+    }
+    flg++;
+    break;
+  default :
+    break;
+  }
 
-  cvZero(img[id]);
-  DrawObject(img[id], lrf_data_max, lrf_data, max_dist);
-  DrawFundamental(img[id]);
-  cvShowImage(lrf_window_name,img[id]);
-  
-  return cvWaitKey(1);
-
+  cvZero(img);
+  DrawObject(img, lrf_data_max, lrf_data, max_dist);
+  DrawFundamental(img);
+  cvShowImage(lrf_window_name,img);
 }
