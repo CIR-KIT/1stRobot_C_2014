@@ -189,9 +189,11 @@ int GetEncData(unsigned short *fcenc, unsigned short *rrenc, unsigned short *rle
     }
   }while(buf[1] != 'E' || buf[2] != 'N' || buf[3] != 'C' || buf[RECVSIZE-1] != ';');
 
+  pthread_mutex_lock(&EncoderMTX);
   *fcenc = atoi(&buf[5]);
   *rrenc = atoi(&buf[11]);
   *rlenc = atoi(&buf[17]);
+  pthread_mutex_unlock(&EncoderMTX);
 
   return 0;
 

@@ -36,7 +36,20 @@ int SetLRF(LRFData* lrf, const int id)
 {
   int i;
 
-  if(id == LRF_ALL_ID){
+  if(id == LRF_CPY_ID){
+    for(i=0; i<NUM_OF_LRF; i++){
+      //Get max numbers of lrf_data
+      lrf[i].datasize = urg_max_data_size(&urg[i]);
+
+      //Get Memory for lrf_data with calloc
+      lrf[i].data = (long*)calloc(lrf[i].datasize,sizeof(long));
+      if(!lrf[i].data){
+	perror("calloc");
+	exit(1);
+      }
+    }
+  }
+  else if(id == LRF_ALL_ID){
     for(i=0; i<NUM_OF_LRF; i++){
       //Open LRF Device (Serial)
       if (urg_open(&urg[i], URG_SERIAL,SERIAL_PORT[i],115200) < 0) {
@@ -83,40 +96,44 @@ int SetLRF(LRFData* lrf, const int id)
   return 0;
 }
 
-/*-----------------------------------------------------------
-  Name     : CloseLRF
-  Argument : LRFData* lrf, int id
-  Return   : void
-  About    : close LRF connection & free lrf.data
-  Version  : Ver 1.0
-  Date     : 2014/05/25
-  Author   : Ryodo Tanaka (Kyushu Institute of Technology)
--------------------------------------------------------------*/
-void CloseLRF(LRFData *lrf, const int id)
-{
-  int i;
+  /*-----------------------------------------------------------
+    Name     : CloseLRF
+    Argument : LRFData* lrf, int id
+    Return   : void
+    About    : close LRF connection & free lrf.data
+    Version  : Ver 1.0
+    Date     : 2014/05/25
+    Author   : Ryodo Tanaka (Kyushu Institute of Technology)
+    -------------------------------------------------------------*/
+  void CloseLRF(LRFData *lrf, const int id)
+  {
+    int i;
 
-  if(id == LRF_ALL_ID){
-    for(i=0; i<NUM_OF_LRF; i++){
-      free(lrf[i].data);
-      urg_close(&urg[i]);
+    if(id == LRF_CPY_ID){
+      for(i=0; i<NUM_OF_LRF; i++)
+	free(lrf[i].data);
+    }
+    else if(id == LRF_ALL_ID){
+      for(i=0; i<NUM_OF_LRF; i++){
+	free(lrf[i].data);
+	urg_close(&urg[i]);
+      }
+    }
+    else {
+      free(lrf->data);
+      urg_close(&urg[id]);
     }
   }
-  else {
-    free(lrf->data);
-    urg_close(&urg[id]);
-  }
-}
 
-/*-----------------------------------------------------------
-  Name     : LRFDistance
-  Argument : LRFData* lrf, int id
-  Return   : 0(succeed), other(failed)
-  About    : Get distance data of LRF
-  Version  : Ver 1.0
-  Date     : 2014/05/25
-  Author   : Ryodo Tanaka (Kyushu Institute of Technology)
--------------------------------------------------------------*/
+  /*-----------------------------------------------------------
+    Name     : LRFDistance
+    Argument : LRFData* lrf, int id
+    Return   : 0(succeed), other(failed)
+    About    : Get distance data of LRF
+    Version  : Ver 1.0
+    Date     : 2014/05/25
+    Author   : Ryodo Tanaka (Kyushu Institute of Technology)
+    -------------------------------------------------------------*/
 int LRFDistance(LRFData *lrf, const int id)
 {
   long time_stamp[NUM_OF_LRF];
@@ -128,11 +145,13 @@ int LRFDistance(LRFData *lrf, const int id)
       urg_start_measurement(&urg[i], URG_DISTANCE, CAPTURE_TIMES, 0);
 
       //Get LRF Data "CAPTURE_TIMES" times
+      pthread_mutex_lock(&LRFMTX[i]);
       if(urg_get_distance(&urg[i], lrf[i].data, &time_stamp[i]) <=0){
 	printLOG("urg_get_data()");    
 	urg_close(&urg[i]);
 	exit(1);
       }
+      pthread_mutex_unlock(&LRFMTX[i]);
     }
   }
   else {
@@ -140,11 +159,13 @@ int LRFDistance(LRFData *lrf, const int id)
     urg_start_measurement(&urg[id], URG_DISTANCE, CAPTURE_TIMES, 0);
 
     //Get LRF Data "CAPTURE_TIMES" times
+    pthread_mutex_lock(&LRFMTX[id]);
     if(urg_get_distance(&urg[id], lrf->data, &time_stamp) <=0){
       printLOG("urg_get_data()");    
       urg_close(&urg[id]);
       exit(1);
     }
+    pthread_mutex_unlock(&LRFMTX[id]);
   }
 
   return 0;

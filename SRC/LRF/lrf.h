@@ -5,6 +5,16 @@
 #define LRF_FRONT_ID 0
 #define LRF_REAR_ID 1
 #define LRF_ALL_ID 9
+#define LRF_CPY_ID 10
+
+//pthread
+#ifndef __PTHREAD__
+#define __PTHREAD__
+#include <pthread.h>
+#endif
+//pthread mutex ID
+extern pthread_mutex_t LRFMTX[NUM_OF_LRF];
+
 #define CAPTURE_TIMES 1
 
 typedef struct{

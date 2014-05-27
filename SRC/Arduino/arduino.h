@@ -11,6 +11,13 @@
 #define LEFT '-'                   //Turn Left command
 #define KEEP '@'                   //Keep the turn dir
 
+//pthread
+#ifndef __PTHREAD__
+#include <pthread.h>
+#endif
+//pthread mutex ID
+extern pthread_mutex_t EncoderMTX;
+
 int SetArduino(const int id);
 void CloseArduino(int id);
 int Move(const char DIRflg, const unsigned char speed, const char STEERflg);

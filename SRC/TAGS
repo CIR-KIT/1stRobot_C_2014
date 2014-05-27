@@ -25,11 +25,20 @@ Arduino/arduino.h,237
 #define LEFT 11,426
 #define KEEP 12,481
 
-main.h,132
-unsigned short FCEnc,15,257
-unsigned short FCEnc, RREnc,15,257
-unsigned short FCEnc, RREnc, RLEnc;15,257
-LRFData lrf[lrf16,362
+main.h,452
+unsigned short FCEnc,10,178
+unsigned short FCEnc, RREnc,10,178
+unsigned short FCEnc, RREnc, RLEnc;10,178
+unsigned short FCEncCpy,11,295
+unsigned short FCEncCpy, RREncCpy,11,295
+unsigned short FCEncCpy, RREncCpy, RLEncCpy;11,295
+LRFData lrf[lrf12,374
+LRFData lrfCpy[lrfCpy13,468
+#define __PTHREAD__18,614
+pthread_t LRFThreadID;27,755
+pthread_t EncoderThreadID;28,778
+pthread_mutex_t LRFMTX[LRFMTX31,825
+pthread_mutex_t EncoderMTX;32,861
 
 Control/control.c,197
 #define printLOG(20,538
@@ -49,17 +58,19 @@ Control/control.h,130
   unsigned char deg;8,105
 } MVcmd;9,126
 
-LRF/lrf.h,242
+LRF/lrf.h,296
 #define __LRF__2,16
 #define NUM_OF_LRF 4,33
 #define LRF_FRONT_ID 5,54
 #define LRF_REAR_ID 6,77
 #define LRF_ALL_ID 7,99
-#define CAPTURE_TIMES 8,120
-  long* data;11,161
-  long* intensity;12,200
-  long datasize;13,240
-} LRFData;14,281
+#define LRF_CPY_ID 8,120
+#define __PTHREAD__12,173
+#define CAPTURE_TIMES 18,284
+  long* data;21,325
+  long* intensity;22,364
+  long datasize;23,404
+} LRFData;24,445
 
 LRF/SHOW/lrfshow.h,109
 #define __LRF_SHOW__2,21
@@ -84,20 +95,23 @@ CvPoint lo_pt1, lo_pt2,19,317
 unsigned char flg 24,448
 IplImage *img[img26,472
 int SetLRFShow(37,881
-void CloseLRFShow(71,1733
-void DrawFundamental(91,2319
-void DrawObject(152,4555
-int LRFShow(195,6343
+void CloseLRFShow(73,1768
+void DrawFundamental(93,2355
+void DrawObject(154,4591
+int LRFShow(197,6379
 
-LRF/lrf.c,202
+LRF/lrf.c,205
 #define printLOG(17,462
 const char* SERIAL_PORT[SERIAL_PORT20,576
 const char* ETHER_PORT[ETHER_PORT21,693
 urg_t urg[urg24,760
 int SetLRF(35,1163
-void CloseLRF(95,2640
-int LRFDistance(120,3240
+  void CloseLRF(108,2991
+int LRFDistance(137,3716
 
-main.c,36
-int main(3,19
-int StartUP(60,1258
+main.c,120
+#define printLOG(10,126
+int main(12,225
+void* LRFThread(110,2733
+void* EncoderThread(134,3164
+int StartUP(159,3650

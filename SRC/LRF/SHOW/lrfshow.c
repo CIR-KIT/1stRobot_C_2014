@@ -39,10 +39,12 @@ int SetLRFShow(const int id)
   int i;
 
   if(id == LRF_ALL_ID){
-    img[i] = cvCreateImage(cvSize(LRF_WINDOW_SIZE,LRF_WINDOW_SIZE), IPL_DEPTH_8U, 3);
-    if(!img[i]){
-      printLOG("cvCreateImage() LRFShow");
-      exit(1);
+    for(i=0; i<NUM_OF_LRF; i++){
+      img[i] = cvCreateImage(cvSize(LRF_WINDOW_SIZE,LRF_WINDOW_SIZE), IPL_DEPTH_8U, 3);
+      if(!img[i]){
+	printLOG("cvCreateImage() LRFShow");
+	exit(1);
+      }
     }
   }
   else {
@@ -73,7 +75,7 @@ void CloseLRFShow(const int id)
   int i;
 
   cvDestroyAllWindows();
-  if(i == LRF_ALL_ID)
+  if(id == LRF_ALL_ID)
     for(i=0; i<NUM_OF_LRF; i++)
       cvReleaseImage(&img[i]);
   else  
